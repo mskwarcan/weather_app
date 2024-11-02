@@ -1,0 +1,17 @@
+<div class="column">
+	<div class="date">
+		<%= Date.parse(forecast[:date]).strftime('%B, %-d') %>
+	</div>
+	<div class="icon">
+		<img src="<%= forecast[:icon] %>" />
+	</div>
+	<div class="condition">
+			<b>Condition:</b><br /><%= forecast[:condition] %>
+	</div>
+	<div class="temp">
+			<b>High:</b><br /><%= forecast[:high_f] %>&deg; F / <%= forecast[:high_c] %>&deg; C
+	</div>
+	<div class="temp">
+			<b>Low:</b><br /><%= forecast[:low_f] %>&deg; F / <%= forecast[:low_c] %>&deg; C
+	</div>
+</div>

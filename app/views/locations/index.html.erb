@@ -1,0 +1,37 @@
+<%= form_tag root_path, remote: true, method: :get do %>
+    <input type="text" id="query" name="query" required placeholder="Address/City/Zip/Country" value="<%= params[:query] %>" />
+    <input type="submit" value="Submit" />
+<% end %>
+<p>Add in any combination of address, city, state, postal code, or country to see what the current weather is and the expected weather for the next 5 days! If the location you get isn't what you expected, try being more specific.</p> 
+
+<% if @error.present? %>
+	<div class="errors">
+		Error: <%= @error[:error]%>
+	</div>
+<% end %>
+
+<% if @cached.present? %>
+	<div class="alert">
+		Warning: This data was cached and may be out of date.
+	</div>
+<% end %>
+
+<div class="container">
+	<% if @data.present? %>
+		<div class="section">
+			<div id="location" class="panel">
+				<%= render(partial: 'locations/location', locals: { location: @data[:location] }) if @data %>
+			</div>
+
+			<div id="current_weather" class="panel">
+				<%= render(partial: 'weather/current_weather', locals: { current: @data[:current_weather] }) if @data %>
+			</div>
+		</div>
+
+		<div id="forecast">
+			<% @data[:forecast_data].each do |forecast| %>
+				<%= render(partial: 'weather/forecast_panel', locals: { forecast: forecast }) %>
+			<% end %>
+		</div>
+	<% end %>
+</div>
